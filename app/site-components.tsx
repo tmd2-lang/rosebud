@@ -65,17 +65,21 @@ export function Placeholder({ className = "", dark = false }: { className?: stri
   return <div className={`placeholder ${dark ? "placeholder-dark" : ""} ${className}`} role="img" aria-label="Image placeholder"><span>Placeholder</span></div>;
 }
 
-export function PageHero({ eyebrow, title, body, children, placeholder = true }: { eyebrow: string; title: string; body: string; children?: ReactNode; placeholder?: boolean }) {
+export function SiteImage({ src, alt, className = "", position = "center", eager = false }: { src: string; alt: string; className?: string; position?: string; eager?: boolean }) {
+  return <figure className={`site-image ${className}`}><img src={src} alt={alt} style={{ objectPosition: position }} loading={eager ? "eager" : "lazy"} /></figure>;
+}
+
+export function PageHero({ eyebrow, title, body, children, image, placeholder = true }: { eyebrow: string; title: string; body: string; children?: ReactNode; image?: { src: string; alt: string; position?: string }; placeholder?: boolean }) {
   return (
     <section className="page-hero">
-      <div className={`section-shell page-hero-grid ${placeholder ? "" : "single-hero"}`}>
+      <div className={`section-shell page-hero-grid ${placeholder || image ? "" : "single-hero"}`}>
         <div className="page-hero-copy">
           <p className="eyebrow light-eyebrow">{eyebrow}</p>
           <h1>{title}</h1>
           <p>{body}</p>
           {children}
         </div>
-        {placeholder && <Placeholder className="page-hero-placeholder" dark />}
+        {image ? <SiteImage className="page-hero-placeholder" src={image.src} alt={image.alt} position={image.position} eager /> : placeholder && <Placeholder className="page-hero-placeholder" dark />}
       </div>
     </section>
   );

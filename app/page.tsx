@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Placeholder, SiteFooter, SiteHeader } from "./site-components";
+import { SiteFooter, SiteHeader, SiteImage } from "./site-components";
 
 const facts = [
   ["18 holes", "Par 71"],
@@ -24,7 +24,7 @@ export default function Home() {
             </div>
             <p className="fine-print">Public play welcome <span>·</span> Annual memberships available</p>
           </div>
-          <Placeholder className="hero-placeholder" />
+          <SiteImage className="hero-placeholder" src="/rosebud-images/hero.png" alt="Rosebud fairway in warm morning light" position="center" eager />
         </section>
 
         <section className="fact-strip" aria-label="Course highlights">
@@ -46,7 +46,7 @@ export default function Home() {
             <p>You’ll find mature trees, old stone walls, small greens, and a few decisions that matter. You’ll also find a friendly staff, a comfortable clubhouse, and a tee sheet that’s open to the public.</p>
             <Link className="text-link" href="/about">Our story <span aria-hidden="true">→</span></Link>
           </div>
-          <Placeholder className="landscape-placeholder" />
+          <SiteImage className="landscape-placeholder" src="/rosebud-images/golfers-walking.png" alt="Five golfers walking a tree-lined Rosebud fairway" position="center" />
         </section>
 
         <section className="section soft-section">
@@ -81,7 +81,7 @@ export default function Home() {
 
         <section className="signature-section">
           <div className="section-shell signature-grid">
-            <Placeholder className="signature-placeholder" dark />
+            <SiteImage className="signature-placeholder" src="/rosebud-images/hole-14.png" alt="Hole 14 at Rosebud playing across a pond to a green framed by flowering shrubs" position="center" />
             <div className="signature-copy">
               <p className="eyebrow light-eyebrow">Hole 14 <span>·</span> The Garden</p>
               <h2>Short on the card.<br />Not always simple.</h2>
@@ -101,7 +101,7 @@ export default function Home() {
           </div>
           <div className="event-grid">
             <article className="feature-card">
-              <Placeholder className="card-placeholder" />
+              <SiteImage className="card-placeholder" src="/rosebud-images/corporate-outing-carts.png" alt="Golf carts lined up for a Rosebud corporate outing" position="center" />
               <div className="feature-card-copy">
                 <p className="eyebrow">Golf outings</p>
                 <h3>A good day for a great cause.</h3>
@@ -110,7 +110,7 @@ export default function Home() {
               </div>
             </article>
             <article className="feature-card">
-              <Placeholder className="card-placeholder" />
+              <SiteImage className="card-placeholder" src="/rosebud-images/rose-room.png" alt="The Rose Room set with round tables and flowers" position="center" />
               <div className="feature-card-copy">
                 <p className="eyebrow">The Rose Room</p>
                 <h3>A comfortable place to gather.</h3>
@@ -134,7 +134,7 @@ export default function Home() {
               </ul>
               <Link className="button button-primary" href="/membership">See membership options</Link>
             </div>
-            <Placeholder className="landscape-placeholder" />
+            <SiteImage className="landscape-placeholder" src="/rosebud-images/course-scenic.png" alt="Rosebud fairway bordered by a stone wall and mature trees" position="center" />
           </div>
         </section>
 
