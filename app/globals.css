@@ -174,6 +174,13 @@ p { margin: 0 0 20px; }
 .package-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
 .package-card { padding: 35px; border-top: 4px solid var(--rose); background: white; box-shadow: 0 10px 32px rgba(24,55,44,.06); }
 .package-card p { color: #62655c; }
+.event-type-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
+.event-type-card { display: grid; grid-template-columns: .86fr 1.14fr; min-height: 350px; background: white; border: 1px solid var(--line); }
+.event-type-image { min-height: 100%; }
+.event-type-copy { display: flex; flex-direction: column; align-items: flex-start; padding: 36px; }
+.event-type-copy h3 { font-size: 2.05rem; }
+.event-type-copy > p:not(.eyebrow) { color: #62655c; }
+.event-type-copy .text-link { margin-top: auto; }
 .amenity-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
 .amenity { min-height: 120px; display: flex; align-items: flex-end; padding: 24px; background: var(--paper); color: var(--pine); font-family: var(--serif); font-size: 1.18rem; }
 .form-layout { display: grid; grid-template-columns: .72fr 1.28fr; gap: 80px; align-items: start; }
@@ -230,7 +237,7 @@ p { margin: 0 0 20px; }
   .signature-placeholder { min-height: 430px; }
   .stat-grid { grid-template-columns: repeat(3,1fr); }
   .stat-item:nth-child(3) { border-right: 0; }
-  .price-grid, .package-grid { grid-template-columns: 1fr; }
+  .price-grid, .package-grid, .event-type-grid { grid-template-columns: 1fr; }
   .amenity-grid { grid-template-columns: repeat(2,1fr); }
   .form-intro { position: static; }
   .footer-grid { grid-template-columns: 1.5fr 1fr 1fr; }
@@ -257,6 +264,8 @@ p { margin: 0 0 20px; }
   .fact:nth-child(even) { border-right: 0; }
   .fact strong { font-size: 1.1rem; }
   .three-up, .event-grid, .two-column-cards, .contact-grid { grid-template-columns: 1fr; }
+  .event-type-card { grid-template-columns: 1fr; }
+  .event-type-image { min-height: 260px; }
   .info-card { min-height: 275px; }
   .card-number { margin-bottom: 35px; }
   .signature-section { padding-block: 72px; }

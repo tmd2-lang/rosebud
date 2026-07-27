@@ -54,7 +54,7 @@ export function SiteFooter() {
         </div>
         <div><h3>Visit</h3><p>68 Rose Hill Road<br />Quincy, MA 02169</p><p><a href="tel:+16175551968">617-555-1968</a></p></div>
         <div><h3>Explore</h3><Link href="/golf">Golf & rates</Link><Link href="/membership">Membership</Link><Link href="/about">Our story</Link><Link href="/contact">Contact</Link></div>
-        <div><h3>Gather</h3><Link href="/outings">Golf outings</Link><Link href="/events">Private events</Link><Link href="/events#rose-room">The Rose Room</Link><Link href="/contact">Event inquiry</Link></div>
+        <div><h3>Gather</h3><Link href="/events/weddings">Weddings</Link><Link href="/events/corporate">Corporate events</Link><Link href="/outings">Golf outings</Link><Link href="/events#event-inquiry">Event inquiry</Link></div>
       </div>
       <div className="section-shell footer-bottom"><span>© 2026 Rosebud Golf Course</span><span>Demo website · All details are fictional</span></div>
     </footer>
@@ -89,18 +89,53 @@ export function PageFrame({ children }: { children: ReactNode }) {
   return <><SiteHeader /><main>{children}</main><SiteFooter /></>;
 }
 
-export function InquiryForm({ type = "event" }: { type?: "event" | "membership" | "contact" | "outing" }) {
-  const labels: Record<string, string[]> = {
-    event: ["Type of event", "Preferred date", "Estimated guest count", "Meal preference"],
-    membership: ["Membership interest", "Typical playing frequency"],
-    contact: ["How can we help?"],
-    outing: ["Organization", "Preferred date", "Estimated player count", "Nine or 18 holes"],
+type InquiryType = "event" | "wedding" | "corporate" | "membership" | "contact" | "outing";
+
+function SelectField({ label, name, options, required = false }: { label: string; name: string; options: string[]; required?: boolean }) {
+  return <label>{label}<select name={name} defaultValue="" required={required}><option value="" disabled>Select an option</option>{options.map(option => <option key={option} value={option}>{option}</option>)}</select></label>;
+}
+
+export function InquiryForm({ type = "event" }: { type?: InquiryType }) {
+  const eventFields = {
+    event: <>
+      <SelectField label="Type of event" name="eventType" required options={["Wedding or reception", "Corporate event", "Golf outing", "Shower or celebration", "Other private event"]} />
+      <div className="form-row"><label>Preferred date<input type="date" name="preferredDate" required /></label><label>Estimated guest count<input type="number" name="guestCount" min="1" max="200" /></label></div>
+      <SelectField label="Food and beverage needs" name="foodBeverageNeeds" options={["Full meal and bar", "Meal only", "Cocktail reception", "Light refreshments", "Not sure yet"]} />
+      <SelectField label="Estimated budget" name="budgetRange" options={["Under $5,000", "$5,000–$10,000", "$10,000–$20,000", "$20,000+", "Not sure yet"]} />
+    </>,
+    wedding: <>
+      <input type="hidden" name="eventType" value="Wedding or reception" />
+      <label>Couple&apos;s names<input name="eventName" required /></label>
+      <div className="form-row"><label>Preferred date<input type="date" name="preferredDate" required /></label><label>Alternate date<input type="date" name="alternateDate" /></label></div>
+      <div className="form-row"><label>Estimated guest count<input type="number" name="guestCount" min="1" max="120" required /></label><SelectField label="Celebration plans" name="celebrationType" options={["Ceremony and reception", "Reception only", "Rehearsal dinner", "Wedding shower", "Not sure yet"]} /></div>
+      <SelectField label="Food and beverage needs" name="foodBeverageNeeds" options={["Plated dinner and hosted bar", "Buffet and hosted bar", "Cocktail reception", "Brunch or lunch", "Not sure yet"]} />
+      <SelectField label="Estimated budget" name="budgetRange" options={["Under $10,000", "$10,000–$20,000", "$20,000–$35,000", "$35,000+", "Not sure yet"]} />
+    </>,
+    corporate: <>
+      <input type="hidden" name="eventType" value="Corporate event" />
+      <label>Company or organization<input name="organization" required /></label>
+      <div className="form-row"><SelectField label="Type of gathering" name="corporateEventType" required options={["Company dinner", "Team meeting or retreat", "Client event", "Holiday party", "Awards banquet", "Other"]} /><label>Preferred date<input type="date" name="preferredDate" required /></label></div>
+      <div className="form-row"><label>Estimated guest count<input type="number" name="guestCount" min="1" max="120" required /></label><SelectField label="Food and beverage needs" name="foodBeverageNeeds" options={["Breakfast or brunch", "Lunch", "Dinner", "Cocktail reception", "Not sure yet"]} /></div>
+      <SelectField label="Meeting and AV needs" name="meetingNeeds" options={["Presentation screen and microphone", "Breakout tables", "Standard room setup", "No AV needed", "Not sure yet"]} />
+    </>,
+    outing: <>
+      <input type="hidden" name="eventType" value="Golf outing" />
+      <label>Company or organization<input name="organization" required /></label>
+      <div className="form-row"><label>Preferred date<input type="date" name="preferredDate" required /></label><label>Alternate date<input type="date" name="alternateDate" /></label></div>
+      <div className="form-row"><label>Estimated player count<input type="number" name="playerCount" min="24" max="144" required /></label><SelectField label="Golf format" name="golfFormat" options={["Nine-hole social", "18-hole consecutive tee times", "18-hole shotgun start", "Not sure yet"]} /></div>
+      <SelectField label="Food and beverage needs" name="foodBeverageNeeds" options={["Boxed lunch", "Post-round buffet", "Awards dinner", "Drink tickets only", "Not sure yet"]} />
+      <SelectField label="Estimated budget" name="budgetRange" options={["Under $5,000", "$5,000–$10,000", "$10,000–$20,000", "$20,000+", "Not sure yet"]} />
+    </>,
+    membership: <><SelectField label="Membership interest" name="membershipInterest" options={["Individual", "Couple", "Family", "Young professional", "Not sure yet"]} /><SelectField label="Typical playing frequency" name="playingFrequency" options={["A few times a month", "Once a week", "Several times a week", "Seasonally"]} /></>,
+    contact: <label>How can we help?<input name="subject" /></label>,
   };
+
   return (
     <form className="inquiry-form" action="/contact#thanks">
+      <input type="hidden" name="leadSource" value="rosebud-website" />
       <div className="form-row"><label>First name<input name="firstName" required /></label><label>Last name<input name="lastName" required /></label></div>
       <div className="form-row"><label>Email<input type="email" name="email" required /></label><label>Phone<input type="tel" name="phone" /></label></div>
-      {labels[type].map((label) => <label key={label}>{label}<input name={label.toLowerCase().replaceAll(" ", "-")} /></label>)}
+      {eventFields[type]}
       <label>Additional details<textarea name="details" rows={5} /></label>
       <button className="button button-primary" type="submit">Send inquiry</button>
       <p className="form-note">This is a demo form. No information is submitted.</p>
