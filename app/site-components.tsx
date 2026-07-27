@@ -131,7 +131,7 @@ export function InquiryForm({ type = "event" }: { type?: InquiryType }) {
   };
 
   return (
-    <form className="inquiry-form" action="/contact#thanks">
+    <form className="inquiry-form" action="/api/event-inquiry" method="post">
       <input type="hidden" name="leadSource" value="rosebud-website" />
       <div className="form-row"><label>First name<input name="firstName" required /></label><label>Last name<input name="lastName" required /></label></div>
       <div className="form-row"><label>Email<input type="email" name="email" required /></label><label>Phone<input type="tel" name="phone" /></label></div>
